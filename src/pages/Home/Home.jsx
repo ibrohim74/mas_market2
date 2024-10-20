@@ -7,7 +7,7 @@ import SectionPopularService from "../../component/section/Section_popular_servi
 import SectionHeroCategory from "../../component/section/Section_hero_category.jsx";
 import cloud from "../../assets/icons/cloud.svg";
 import energy from "../../assets/icons/energy.svg";
-import OPT from "../../assets/icons/opt.svg";
+import OPT from "../../assets/icons/OPT.svg";
 import time from "../../assets/icons/time.svg";
 import Ostavaytes from "../../component/section/ostavaytes.jsx";
 
