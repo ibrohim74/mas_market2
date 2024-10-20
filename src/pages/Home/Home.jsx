@@ -10,6 +10,8 @@ import energy from "../../assets/icons/energy.svg";
 import OPT from "../../assets/icons/OPT.svg";
 import time from "../../assets/icons/time.svg";
 import Ostavaytes from "../../component/section/ostavaytes.jsx";
+import Question from "../../component/section/question.jsx";
+import HelpSection from "../../component/section/helpSection.jsx";
 
 const Home = () => {
     return (
@@ -68,6 +70,8 @@ const Home = () => {
                 <SectionPopularService/>
                 <SectionHeroCategory/>
                 <Ostavaytes/>
+                <Question/>
+                <HelpSection/>
             </div>
         </div>
     );
