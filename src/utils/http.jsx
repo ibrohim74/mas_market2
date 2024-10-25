@@ -1,20 +1,23 @@
 import axios from "axios";
 
+let authToken = localStorage.getItem("token");
+
+const baseURL = "http://13.60.229.3/";
+
 const $API = axios.create({
-    baseURL: 'https://root.templify.uz/', headers: {
-        'Content-Type': 'application/json',
-    },
+    baseURL: baseURL,
 });
 
-$API.interceptors.request.use((config) => {
-    const token = localStorage.getItem('user');
-    if (token) {
-        config.headers['Authorization'] = `Token ${token}`;
+const $authHost = axios.create({
+    baseURL: baseURL,
+    headers:{
+        Authorization: `Token ${authToken}`
     }
-    return config;
-}, (error) => {
-
-    return Promise.reject(error);
 });
 
-export default $API
+
+
+
+// setInterval(refreshToken, 20 * 60 * 1000);
+
+export { $authHost, $API };

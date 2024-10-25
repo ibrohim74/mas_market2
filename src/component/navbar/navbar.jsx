@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/mas.png";
-import { UserOutlined } from "@ant-design/icons";
+import {DownOutlined, UserOutlined} from "@ant-design/icons";
 import { LOGIN } from "../../utils/const/consts.jsx";
+import {Dropdown, Space} from "antd";
+import {useTranslation} from "react-i18next";
+import {languages} from "../../utils/lang/langs.jsx";
+import {useLanguage} from "../../utils/lang/LangContext.jsx";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    const {handleLanguageChange, selectedLanguage} = useLanguage();
+    const { t } = useTranslation();
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -34,6 +39,23 @@ const Navbar = () => {
                     <div className="nav_item">
                         <Link to="/">контакты</Link>
                     </div>
+
+                    <div className="nav_item">
+                        <Dropdown
+                            menu={{
+                                items: languages,
+                                onClick: handleLanguageChange,
+                            }}
+                            trigger={["click"]}
+                        >
+                            <a onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                    {selectedLanguage.icon} {selectedLanguage.label} <DownOutlined/>
+                                </Space>
+                            </a>
+                        </Dropdown>
+                    </div>
+
                 </div>
 
                 <div className="nav_end">

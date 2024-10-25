@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './admin_product.css';
 import { Dropdown, Space, Input, Upload, message, Button, Spin } from 'antd';
 import { DownOutlined, InboxOutlined } from '@ant-design/icons';
-import $API from '../../../utils/http.jsx';
+import {$API, $authHost} from '../../../utils/http.jsx';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from "react-quill";
 
@@ -114,7 +114,7 @@ const AdminProduct = () => {
                 mediaFormData.append('product_name', state.productNameUz); // yoki boshqa nom
                 mediaFormData.append('file', file);
 
-                const mediaRes = await $API.post('/admin-api/media-create/', mediaFormData, {
+                const mediaRes = await $authHost.post('/admin-api/media-create/', mediaFormData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -138,9 +138,10 @@ const AdminProduct = () => {
                 formData.append('photos_or_videos', id); // media id larni qo'shish
             });
 
-            await $API.post('/admin-api/product-create/', formData, {
+            await $authHost.post('/admin-api/product-create/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+
                 },
             });
 

@@ -7,7 +7,7 @@ const {Header, Sider, Content} = Layout;
 import "./admin_layout.css"
 
 const AdminLayout = () => {
-    const token = window.localStorage.getItem("user");
+    const token = window.localStorage.getItem("token");
     const location = useLocation();  // Joriy URL'ni olish uchun
 
     // Dinamik sarlavha belgilash

@@ -1,4 +1,4 @@
-import $API from "../../utils/http.js";
+import {$API} from "../../utils/http.js";
 
 
 export const LoginAPI = async (data) => {

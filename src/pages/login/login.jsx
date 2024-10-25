@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './login.css';
 import truck from '../../assets/img/login_truck.png';
 import {notification} from "antd";
-import $API from "../../utils/http.jsx";
+import {$API} from "../../utils/http.jsx";
 import {ADMIN_DASHBOARD, ADMIN_PRODUCTS} from "../../utils/const/consts.jsx";
 import axios from "axios";
 
@@ -35,10 +35,10 @@ const Login = () => {
         }
 
         try {
-            const response = await axios.post("https://root.templify.uz/auth/token", initialState);
+            const response = await $API.post("auth/token", initialState);
             console.log(response)
             if (response?.status === 200) {
-                window.localStorage.setItem('user', response.data.token);
+                window.localStorage.setItem('token', response.data.token);
                 window.location.assign(ADMIN_DASHBOARD+ADMIN_PRODUCTS);
             } else {
                 api.error({
@@ -79,9 +79,9 @@ const Login = () => {
     return (
         <div className='login-box'>
             {contextHolder}
-            <div className="login_truck_img">
-                <img src={truck} alt="uzbleader cargo"/>
-            </div>
+            {/*<div className="login_truck_img">*/}
+            {/*    <img src={truck} alt="uzbleader cargo"/>*/}
+            {/*</div>*/}
             <div className="login-container">
                 <form onSubmit={handleSubmit}>
                     <h1>Mas Market</h1>
