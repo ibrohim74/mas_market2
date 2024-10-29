@@ -31,7 +31,7 @@ const ProductPage = () => {
                 </div>
                 <CoruselBottom />
             </div>
-            {/* left bar  */}
+            
             <div>
                 <Leftbar />
             </div>

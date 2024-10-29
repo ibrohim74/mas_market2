@@ -46,6 +46,7 @@ const AdminProduct = () => {
         try {
             const res = await $API.get(`/admin-api/subcategory-by-category/${categoryId}/`);
             setSubCategory(res.data.results);
+            console.log(res)
         } catch (e) {
             console.log(e);
         }
@@ -86,7 +87,7 @@ const AdminProduct = () => {
         getSubCategory(category.id);
     };
 
-    // Sub-kategoriyani tanlash
+
     const handleSubCategorySelect = (subCategory) => {
         setState(prevState => ({
             ...prevState,
@@ -94,7 +95,7 @@ const AdminProduct = () => {
         }));
         setDropdownVisible(prevState => ({
             ...prevState,
-            subCategory: false, // Tanlangandan keyin dropdownni yopish
+            subCategory: false,
         }));
     };
     const postProduct = async () => {
@@ -165,7 +166,9 @@ const AdminProduct = () => {
                     className={'category_product_item'}
                     trigger={["click"]}
                     visible={dropdownVisible.category}
-                    onVisibleChange={(flag) => setDropdownVisible(prevState => ({ ...prevState, category: flag }))}
+                    onVisibleChange={(flag) =>
+                        setDropdownVisible(prevState => ({ ...prevState, category: flag }))
+                    }
                     overlay={
                         <div className="dropdown-menu">
                             {category.map((cat) => (
@@ -180,6 +183,7 @@ const AdminProduct = () => {
                         {state.selectedCategory ? state.selectedCategory.name : 'Выбрать категорию'} <DownOutlined/>
                     </a>
                 </Dropdown>
+
 
                 {state.selectedCategory && (
                     <div style={{ marginTop: "15px" }}>

@@ -93,10 +93,10 @@
         font-size: 14px;
         box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.1);
     }
-    .categoryPage_product_item{
+    .categoryPage_product_item:nth-child(odd){
         margin-left: 0;
     }
     .category_product_component_box{
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 }

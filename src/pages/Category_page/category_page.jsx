@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import arrowLeft from "../../assets/icons/pageLeft.svg";
 import arrowRight from "../../assets/icons/pageRight.svg";
+import {PRODUCT_PAGE} from "../../utils/const/consts.jsx";
 
 const CategoryPage = () => {
     const { categoryId } = useParams();
@@ -78,7 +79,7 @@ const CategoryPage = () => {
 
     const totalPages = Math.ceil(totalProducts / productsPerPage);
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-
+    console.log(productList)
     return (
         <div className="category_page container">
             <div className="category_page_categories">
@@ -128,7 +129,7 @@ const CategoryPage = () => {
                 </div>
                 <div className="category_product_component_box">
                     {productList.length > 0 ? productList.map((product, index) => (
-                        <div className="categoryPage_product_item" key={index}>
+                        <div className="categoryPage_product_item" key={index} onClick={()=>{navigate(PRODUCT_PAGE.replace(":productId", product.id))}}>
                             <div className="popular_swiper_top">
                                 <img src={product.photos_or_videos[0]?.file || krujka} alt={product.name} />
                             </div>
