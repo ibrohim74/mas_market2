@@ -99,10 +99,10 @@
 .section_hero_category_item {
     cursor: pointer;
     width: 150px;
-    height: 150px;
+    height: 100px;
     border-radius: 20px;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: 0 20px;
@@ -116,13 +116,17 @@
 }
 
 .section_hero_category_item_img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 20px;
     background: #f2f2f2;
-    padding: 10px;
+    /*padding: 10px;*/
+    margin-bottom: 5px;
+    margin-top: 10px;
 }
-
+.section_hero_category_item_img img{
+    object-fit: contain;
+}
 .section_hero_category_item_text {
     height: 35%;
     text-align: center;
