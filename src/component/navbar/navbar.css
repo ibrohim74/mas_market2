@@ -32,10 +32,10 @@ nav {
 /* Links section */
 .nav_links {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     transition: all ease-in 1s;
-
+    width: 80%;
 }
 
 .nav_item a {
@@ -62,12 +62,18 @@ nav {
     color: #333333;
     border-radius: 15px;
     transition: 0.5s;
-}
 
+}
+.login_link img{
+    width: 20px;
+    height: 20px;
+}
 .login_link:hover {
     background: #008856;
-    color: white;
 }
+
+
+
 
 /* Styling for the mobile menu button (hamburger icon) */
 .mobail_nav_button {
@@ -135,7 +141,7 @@ nav {
 
     /* Hide the login icon in the nav_end for mobile, move it into the menu */
     .nav_end {
-        display: none;
+        margin: 20px 0;
     }
 
     /* Show the mobile button (hamburger icon) */

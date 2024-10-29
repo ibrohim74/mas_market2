@@ -8,7 +8,7 @@ import {Dropdown, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {languages} from "../../utils/lang/langs.jsx";
 import {useLanguage} from "../../utils/lang/LangContext.jsx";
-
+import karzinka from "../../assets/icons/karzinka.svg"
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {handleLanguageChange, selectedLanguage} = useLanguage();
@@ -55,14 +55,14 @@ const Navbar = () => {
                             </a>
                         </Dropdown>
                     </div>
-
+                    <div className="nav_end">
+                        <Link className="login_link" to={LOGIN}>
+                            <img src={karzinka}/>
+                        </Link>
+                    </div>
                 </div>
 
-                <div className="nav_end">
-                    <Link className="login_link" to={LOGIN}>
-                        <UserOutlined />
-                    </Link>
-                </div>
+
             </div>
         </nav>
     );

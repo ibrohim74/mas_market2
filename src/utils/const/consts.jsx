@@ -10,7 +10,7 @@ export const HOME = "/"
 export const CATEGORY_PAGE = "/category/:categoryId";
 export const CATEGORY_PAGE_SOLO = "/category";
 export const PRODUCT_PAGE = "/product/:productId"
-
+export const BASKET_PAGE = "/basket";
 
 export const ADMIN_DASHBOARD = "Administrator/"
 export const ADMIN_PRODUCTS = "Administrator_product"
