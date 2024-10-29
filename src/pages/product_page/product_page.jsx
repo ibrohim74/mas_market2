@@ -3,6 +3,7 @@ import { ImageOne } from './image';
 import Leftbar from './left_bar/leftbar';
 import CoruselBottom from './corusel_bottom/corusel-bottom';
 import ImageCarousel from './corusel_bottom/image-carousel ';
+import CoruselMobile from "./corusel_bottom/corusel-mobile";
 
 const ProductPage = () => {
 
@@ -17,13 +18,16 @@ const ProductPage = () => {
             <div className='d-flex flex-column justify-content-start gap-5 product-father'>
                 <div className="slider-container">
 
-                    <div className='image-first'>
-                        <img className="imageSLider" src={ImageOne} alt="" />
+                    <img className="imageSLider" src={ImageOne} alt="imageSLider" />
+
+                    <div style={{ maxWidth: "350px" }} className="mobile-flex-hidden">
+                        <CoruselMobile />
                     </div>
 
                     <div className="slider">
                         <ImageCarousel images={images} />
                     </div>
+
                 </div>
                 <CoruselBottom />
             </div>

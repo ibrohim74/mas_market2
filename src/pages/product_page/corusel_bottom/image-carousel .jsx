@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
+
+
 const ImageCarousel = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -18,15 +20,19 @@ const ImageCarousel = ({ images }) => {
 
     return (
         <div className="carousel-container">
-            <button className="carousel-button-1" onClick={handlePrev}>
-                <FaChevronUp />
-            </button>
-            <div className="carousel-image">
-                <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} />
+            <div className='w-100'>
+                <button className="carousel-button-1" onClick={handlePrev}>
+                    <FaChevronUp />
+                </button>
+                <div className="carousel-image">
+                    <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} />
+                </div>
+                <button className="carousel-button-2" onClick={handleNext}>
+                    <FaChevronDown />
+                </button>
             </div>
-            <button className="carousel-button-2" onClick={handleNext}>
-                <FaChevronDown />
-            </button>
+
+
         </div>
     );
 };
