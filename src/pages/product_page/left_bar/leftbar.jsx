@@ -4,7 +4,7 @@ import BottomBar from "./bottom-bar"
 
 function Leftbar() {
     const [akardion, setAkardion] = useState(true)
-  
+
     return (
         <div className="product-details">
             <h2>Кружка под сублимацию «Стандарт»</h2>
@@ -13,14 +13,14 @@ function Leftbar() {
                 <span>На складе 2 786 шт</span>
             </div>
             <select className="form-select py-2" id="floatingSelect">
-                <option className>Цвет</option>
+                <option >Цвет</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
             </select>
 
             <select className="form-select py-2" id="floatingSelect">
-                <option className>Вид</option>
+                <option >Вид</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
