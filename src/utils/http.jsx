@@ -2,7 +2,7 @@ import axios from "axios";
 
 let authToken = localStorage.getItem("token");
 
-const baseURL = "http://13.60.229.3/";
+const baseURL = "http://13.60.50.22/";
 
 const $API = axios.create({
     baseURL: baseURL,

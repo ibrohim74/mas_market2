@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './bottom.css'
 
-export default function CoruselBottom() {
+export default function CoruselBottom({info}) {
     const [activeTab, setActiveTab] = useState('description');
 
     useEffect(() => {
@@ -26,42 +26,30 @@ export default function CoruselBottom() {
                 >
                     Описание
                 </button>
-                <button
-                    className={`tab-button ${activeTab === 'files' ? 'active' : ''}`}
-                    onClick={() => handleTabClick('files')}
-                >
-                    Файлы
-                </button>
             </div>
 
             <div className="content">
                 {activeTab === 'description' && (
                     <div className="description">
-                        <p>Противоположная точка зрения подразумевает, что ключевые особенности структуры проекта представляют собой не что иное, как квинтэссенцию победы маркетинга над разумом и должны быть ассоциативно распределены по отраслям. С другой стороны, дальнейшее развитие различных рассуждений! Модель организационной деятельности однозначно фиксирует необходимость направлений прогрессивного развития.</p>
-                        <p>С другой стороны, дальнейшее развитие различных рассуждений! Модель организационной деятельности однозначно фиксирует необходимость направлений прогрессивного развития.</p>
+                        <div dangerouslySetInnerHTML={{__html: info.infoRU}}/>
                         <div className="details">
                             <div>
                                 <strong>Размеры:</strong>
-                                <span>950x81x81 мм</span>
+                                <span>{info?.razmer?.Razmer}{info?.razmer?.Razmer_type}</span>
                             </div>
                             <div>
                                 <strong>Материал:</strong>
-                                <span>Керамика</span>
+                                <span>{info.material}</span>
                             </div>
                             <div>
                                 <strong>Область нанесения:</strong>
-                                <span>205х75 мм</span>
+                                <span>{info.oblast_naniseniya}</span>
                             </div>
                             <div>
                                 <strong>Вес:</strong>
-                                <span>361 гр</span>
+                                <span>{info?.ves?.Ves}{info?.ves?.Ves_type}</span>
                             </div>
                         </div>
-                    </div>
-                )}
-                {activeTab === 'files' && (
-                    <div className="files">
-                        <p>Здесь могут быть файлы для скачивания.</p>
                     </div>
                 )}
             </div>

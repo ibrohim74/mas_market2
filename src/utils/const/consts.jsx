@@ -5,12 +5,15 @@ import Login from "../../pages/login/login.jsx";
 import Category from "../../pages/admin_page/category/category.jsx";
 import Product_page from "../../pages/product_page/product_page.jsx";
 import Category_page from "../../pages/Category_page/category_page.jsx";
+import Basket_page from "../../pages/basket/basket_page.jsx";
+import Checkout from "../../pages/basket/checkout.jsx";
 
 export const HOME = "/"
 export const CATEGORY_PAGE = "/category/:categoryId";
 export const CATEGORY_PAGE_SOLO = "/category";
 export const PRODUCT_PAGE = "/product/:productId"
 export const BASKET_PAGE = "/basket";
+export const CHECKOUT = "/checkout";
 
 export const ADMIN_DASHBOARD = "Administrator/"
 export const ADMIN_PRODUCTS = "Administrator_product"
@@ -51,6 +54,14 @@ export const Public_router = [
     {
         Path:CATEGORY_PAGE_SOLO,
         Component: <Category_page/>
+    },
+    {
+        Path:BASKET_PAGE,
+        Component: <Basket_page/>
+    },
+    {
+        Path:CHECKOUT,
+        Component: <Checkout/>
     },
 
 ]

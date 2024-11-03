@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import "./navbar.css";
-import { Link } from "react-router-dom";
+import {Link, useNavigation} from "react-router-dom";
 import logo from "../../assets/img/mas.png";
 import {DownOutlined, UserOutlined} from "@ant-design/icons";
-import { LOGIN } from "../../utils/const/consts.jsx";
+import {BASKET_PAGE, HOME, LOGIN} from "../../utils/const/consts.jsx";
 import {Dropdown, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {languages} from "../../utils/lang/langs.jsx";
 import {useLanguage} from "../../utils/lang/LangContext.jsx";
 import karzinka from "../../assets/icons/karzinka.svg"
+
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {handleLanguageChange, selectedLanguage} = useLanguage();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
-
     return (
         <nav>
             <div className="nav_container">
-                <div className="nav-logo">
-                    <img src={logo} alt="Mas Marketing" />
-                </div>
+                <Link to={HOME} className="nav-logo" onClick={() => nav}>
+                    <img src={logo} alt="Mas Marketing"/>
+                </Link>
 
                 {/* Mobile button */}
                 <div className="mobail_nav_button" onClick={toggleMenu}>
@@ -56,7 +56,7 @@ const Navbar = () => {
                         </Dropdown>
                     </div>
                     <div className="nav_end">
-                        <Link className="login_link" to={LOGIN}>
+                        <Link className="login_link" to={BASKET_PAGE}>
                             <img src={karzinka}/>
                         </Link>
                     </div>

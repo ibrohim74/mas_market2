@@ -1,22 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-
-
-// import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import { coruselImg } from '../export';
 
-
-function CoruselMobile() {
+function CoruselMobile({ images = [] }) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    return (
 
+    return (
         <div style={{ width: '100%' }} className='bg-success'>
             <Swiper
                 style={{
@@ -26,39 +19,43 @@ function CoruselMobile() {
                     '--swiper-pagination-color': '#fff',
                 }}
                 spaceBetween={10}
-                navigation={true}
+                navigation
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
             >
-                {
-                    coruselImg.map((i) => {
-                        return <SwiperSlide key={i.id} style={{ width: '100%' }}>
-                            <img height={200} width={'100%'} src={i.img} />
-                        </SwiperSlide>
-                    })
-                }
+                {images.map((image) => (
+                    <SwiperSlide key={image.id} style={{ width: '100%' }}>
+                        <img
+                            height={200}
+                            width="100%"
+                            src={image.file}
+                            alt={`Slide ${image.id}`}
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
             <Swiper
                 onSwiper={setThumbsSwiper}
                 spaceBetween={10}
                 slidesPerView={4}
-                freeMode={true}
-                watchSlidesProgress={true}
+                freeMode
+                watchSlidesProgress
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
             >
-                {
-                    coruselImg.map((i) => {
-                        return <SwiperSlide key={i.id}>
-                            <img height={100} src={i.img} />
-                        </SwiperSlide>
-                    })
-                }
+                {images.map((image) => (
+                    <SwiperSlide key={image.id}>
+                        <img
+                            height={100}
+                            src={image.file}
+                            alt={`Thumbnail ${image.id}`}
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
-
         </div>
-    )
+    );
 }
 
-export default CoruselMobile
+export default CoruselMobile;

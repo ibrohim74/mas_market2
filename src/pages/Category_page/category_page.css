@@ -2,9 +2,10 @@
     display: flex;
     justify-content: space-around;
 }
-.category_product_component{
-
+.category_page{
+    margin-top: 50px !important;
 }
+
 .category_product_component_box{
     display: flex;
     justify-content: flex-start;

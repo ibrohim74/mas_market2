@@ -38,11 +38,12 @@
 }
 
 .imageSLider {
-    width: 448px;
+    width: 100%;
     height: 448px;
     border-radius: 10px 0px 0px 0px;
     opacity: 0px;
     display: block;
+    object-fit: cover;
 }
 
 /* Tablet */
@@ -58,6 +59,7 @@
         border-radius: 10px 0px 0px 0px;
         opacity: 0px;
         display: block;
+
     }
 
     .slider {
@@ -262,7 +264,7 @@
 /* prise sale */
 
 .prise-sale {
-    width: 144px;
+    width: 80%;
     height: 80px;
     top: 516px;
     gap: 0px;
@@ -389,7 +391,6 @@
 }
 
 .constructor-button::after {
-    content: '+';
     font-size: 18px;
 }
 
@@ -497,8 +498,7 @@
     }
 
     .prise-sale {
-        width: 120px;
-        height: 70px;
+        height: 80px;
     }
 
     .carousel-container {
@@ -531,8 +531,7 @@
     }
 
     .prise-sale {
-        width: 100px;
-        height: 60px;
+        height: 80px;
     }
 
     .carousel-container {
@@ -607,8 +606,7 @@
     }
 
     .prise-sale {
-        width: 120px;
-        height: 70px;
+        height: 80px;
     }
 
     .carousel-container {
@@ -639,8 +637,7 @@
     }
 
     .prise-sale {
-        width: 100px;
-        height: 60px;
+        height: 80px;
     }
 
     .carousel-container {

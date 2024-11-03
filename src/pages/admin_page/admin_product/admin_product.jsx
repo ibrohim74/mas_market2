@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './admin_product.css';
-import { Dropdown, Space, Input, Upload, message, Button, Spin } from 'antd';
+import {Dropdown, Space, Input, Upload, message, Button, Spin, Menu} from 'antd';
 import { DownOutlined, InboxOutlined } from '@ant-design/icons';
 import {$API, $authHost} from '../../../utils/http.jsx';
 import 'react-quill/dist/quill.snow.css';
@@ -18,7 +18,18 @@ const AdminProduct = () => {
         propertiesUz: '',
         propertiesRu: '',
         uploadedFiles: [],
+        vid: [], // should be an array
+        sposibNaniseniya: [], // should be an array
+        oblast_naniseniya: [], // should be an array
+        razmer: '',
+        razmerType: 'mm',
+        ves: '',
+        vesType: 'gr',
+        naSklade: '',
+        articul: '',
+        material: '',
     });
+    console.log(state)
     const [category, setCategory] = useState([]);
     const [subCategory, setSubCategory] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState({
@@ -98,6 +109,28 @@ const AdminProduct = () => {
             subCategory: false,
         }));
     };
+
+
+    const categoryMenu = (
+        <Menu>
+            {category.map((cat) => (
+                <Menu.Item key={cat.id} onClick={() => handleCategorySelect(cat)}>
+                    {cat.name}
+                </Menu.Item>
+            ))}
+        </Menu>
+    );
+
+    const subCategoryMenu = (
+        <Menu>
+            {subCategory.map((sub) => (
+                <Menu.Item key={sub.id} onClick={() => handleSubCategorySelect(sub)}>
+                    {sub.name}
+                </Menu.Item>
+            ))}
+        </Menu>
+    );
+
     const postProduct = async () => {
         if (!state.productNameUz || !state.productNameRu || !state.selectedCategory || !state.productPrice) {
             message.error('Barcha maydonlarni to\'ldiring!');
@@ -120,32 +153,44 @@ const AdminProduct = () => {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                console.log(mediaRes)
+                console.log(mediaRes);
                 uploadedMediaIds.push(mediaRes.data.id); // yuklangan fayl id sini saqlash
             }
-            console.log(uploadedMediaIds)
+            console.log(uploadedMediaIds);
+
             // 2. Mahsulot yaratish
             const formData = new FormData();
             formData.append('name', state.productNameUz);
             formData.append('nameRU', state.productNameRu);
             formData.append('category', state.selectedCategory.id);
-            formData.append('subcategory', state.selectedSubCategory.category);
+            formData.append('subcategory', state.selectedSubCategory.id);
             formData.append('price', state.productPrice);
             formData.append('infoUZ', state.infoUz);
             formData.append('infoRU', state.infoRu);
             formData.append('propertiesUz', state.propertiesUz);
             formData.append('propertiesRU', state.propertiesRu);
+
+            // Convert arrays to JSON strings
+            formData.append('vid', JSON.stringify(state.vid)); // Convert to JSON
+            formData.append('sposib_naniseniya', JSON.stringify(state.sposibNaniseniya)); // Convert to JSON
+            formData.append('oblast_naniseniya', JSON.stringify(state.oblast_naniseniya)); // Convert to JSON
+
+            formData.append('razmer', JSON.stringify({ Razmer: state.razmer, Razmer_type: state.razmerType }));
+            formData.append('ves', JSON.stringify({ Ves: state.ves, Ves_type: state.vesType }));
+            formData.append('na_sklade', state.naSklade);
+            formData.append('articul', state.articul);
+            formData.append('material', state.material);
+
             uploadedMediaIds.forEach(id => {
                 formData.append('photos_or_videos', id); // media id larni qo'shish
             });
 
-            await $authHost.post('/admin-api/product-create/', formData, {
+          const res=  await $authHost.post('/admin-api/product-create/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-
                 },
             });
-
+            console.log(res)
             message.success('Mahsulot muvaffaqiyatli yaratildi!');
         } catch (e) {
             console.log(e);
@@ -155,7 +200,7 @@ const AdminProduct = () => {
         }
     };
 
-
+    console.log(category)
     return (
         <div className="admin-product">
             <div className="category_product">
@@ -167,17 +212,9 @@ const AdminProduct = () => {
                     trigger={["click"]}
                     visible={dropdownVisible.category}
                     onVisibleChange={(flag) =>
-                        setDropdownVisible(prevState => ({ ...prevState, category: flag }))
+                        setDropdownVisible(prevState => ({...prevState, category: flag}))
                     }
-                    overlay={
-                        <div className="dropdown-menu">
-                            {category.map((cat) => (
-                                <a key={cat.id} onClick={() => handleCategorySelect(cat)}>
-                                    {cat.name}
-                                </a>
-                            ))}
-                        </div>
-                    }
+                    overlay={categoryMenu}
                 >
                     <a onClick={(e) => e.preventDefault()}>
                         {state.selectedCategory ? state.selectedCategory.name : 'Выбрать категорию'} <DownOutlined/>
@@ -186,22 +223,17 @@ const AdminProduct = () => {
 
 
                 {state.selectedCategory && (
-                    <div style={{ marginTop: "15px" }}>
+                    <div style={{marginTop: "15px"}}>
                         <label>Подкатегория товара *</label>
                         <Dropdown
                             className={"category_product_item"}
                             trigger={["click"]}
                             visible={dropdownVisible.subCategory}
-                            onVisibleChange={(flag) => setDropdownVisible(prevState => ({ ...prevState, subCategory: flag }))}
-                            overlay={
-                                <div className="dropdown-menu">
-                                    {subCategory.map((sub) => (
-                                        <a key={sub.id} onClick={() => handleSubCategorySelect(sub)}>
-                                            {sub.name}
-                                        </a>
-                                    ))}
-                                </div>
-                            }
+                            onVisibleChange={(flag) => setDropdownVisible(prevState => ({
+                                ...prevState,
+                                subCategory: flag
+                            }))}
+                            overlay={subCategoryMenu}
                         >
                             <a onClick={(e) => e.preventDefault()}>
                                 {state.selectedSubCategory ? state.selectedSubCategory.name : 'Выбрать подкатегорию'}
@@ -214,44 +246,160 @@ const AdminProduct = () => {
 
             <div className="product_content_name">
                 <label>Название товара на Узбекском *</label>
-                <Input maxLength={90} value={state.productNameUz} onChange={(e) => setState(prevState => ({ ...prevState, productNameUz: e.target.value }))}
+                <Input maxLength={90} value={state.productNameUz}
+                       onChange={(e) => setState(prevState => ({...prevState, productNameUz: e.target.value}))}
                        placeholder="Точное название товара" className="product_input" disabled={loading}/>
 
                 <label>Название товара на Русском *</label>
-                <Input maxLength={90} value={state.productNameRu} onChange={(e) => setState(prevState => ({ ...prevState, productNameRu: e.target.value }))}
+                <Input maxLength={90} value={state.productNameRu}
+                       onChange={(e) => setState(prevState => ({...prevState, productNameRu: e.target.value}))}
                        placeholder="Точное название товара" className="product_input" disabled={loading}/>
 
                 <label>Price *</label>
-                <Input maxLength={90} value={state.productPrice} onChange={(e) => setState(prevState => ({ ...prevState, productPrice: e.target.value }))}
+                <Input maxLength={90} value={state.productPrice} type={"number"}
+                       onChange={(e) => setState(prevState => ({...prevState, productPrice: e.target.value}))}
                        placeholder="Цена товара" className="product_input" disabled={loading}/>
             </div>
 
             <div className="product_content_info">
                 <label>Описание товара на Узбекском *</label>
                 <ReactQuill theme="snow"
-                            modules={{ toolbar: toolbarOpt }}
-                            value={state.infoUz} onChange={(value) => setState(prevState => ({ ...prevState, infoUz: value }))}
+                            modules={{toolbar: toolbarOpt}}
+                            value={state.infoUz}
+                            onChange={(value) => setState(prevState => ({...prevState, infoUz: value}))}
                             className={"product_content_info_item"} readOnly={loading}/>
                 <label>Описание товара на Русском *</label>
                 <ReactQuill theme="snow"
-                            modules={{ toolbar: toolbarOpt }}
-                            value={state.infoRu} onChange={(value) => setState(prevState => ({ ...prevState, infoRu: value }))}
+                            modules={{toolbar: toolbarOpt}}
+                            value={state.infoRu}
+                            onChange={(value) => setState(prevState => ({...prevState, infoRu: value}))}
                             className={"product_content_info_item"} readOnly={loading}/>
             </div>
 
             <div className="product_content_properties">
                 <div className="properties">
                     <label>свойства товара на Узбекском *</label>
-                    <Input maxLength={90} value={state.propertiesUz} onChange={(e) => setState(prevState => ({ ...prevState, propertiesUz: e.target.value }))}
+                    <Input maxLength={90} value={state.propertiesUz}
+                           onChange={(e) => setState(prevState => ({...prevState, propertiesUz: e.target.value}))}
                            placeholder="свойства товара" className="product_input" disabled={loading}/>
                 </div>
 
                 <div className="properties">
                     <label>свойства товара на Русском *</label>
-                    <Input maxLength={90} value={state.propertiesRu} onChange={(e) => setState(prevState => ({ ...prevState, propertiesRu: e.target.value }))}
+                    <Input maxLength={90} value={state.propertiesRu}
+                           onChange={(e) => setState(prevState => ({...prevState, propertiesRu: e.target.value}))}
                            placeholder="свойства товара" className="product_input properties" disabled={loading}/>
                 </div>
             </div>
+
+            <div className="product_content_properties">
+
+
+                <div className="properties">
+                    <label>Sposib Naniseniya</label>
+                    <Input
+                        value={state.sposibNaniseniya.join(', ')} // Show as comma-separated string
+                        onChange={(e) => setState(prevState => ({
+                            ...prevState,
+                            sposibNaniseniya: e.target.value.split(',').map(item => item.trim())
+                        }))} // Split string into array
+                    />
+                </div>
+                <div className="properties">
+                    <label>oblast Naniseniya</label>
+                    <Input
+                        value={state.oblast_naniseniya.join(', ')} // Show as comma-separated string
+                        onChange={(e) => setState(prevState => ({
+                            ...prevState,
+                            oblast_naniseniya: e.target.value.split(',').map(item => item.trim())
+                        }))} // Split string into array
+                    />
+                </div>
+            </div>
+
+            <div className="product_content_properties">
+                <div className="properties">
+                    <div>
+                        <p> Razmer:</p>
+                        <label style={{display: "flex"}}>
+
+                            <input
+                                type="number"
+                                value={state.razmer}
+                                onChange={(e) => setState(prevState => ({...prevState, razmer: e.target.value}))}
+                                placeholder="Razmer kiriting"
+                            />
+                            <select value={state.razmerType}
+                                    onChange={(e) => setState(prevState => ({
+                                        ...prevState,
+                                        razmerType: e.target.value
+                                    }))}>
+                                <option value="mm">mm</option>
+                                <option value="sm">sm</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <div className="properties">
+                    <div>
+                        <p> Ves:</p>
+                        <label style={{display: "flex"}}>
+
+                            <input
+                                type="number"
+                                value={state.ves}
+                                onChange={(e) => setState(prevState => ({...prevState, ves: e.target.value}))}
+                                placeholder="Ves kiriting"
+                            />
+                            <select value={state.vesType}
+                                    onChange={(e) => setState(prevState => ({...prevState, vesType: e.target.value}))}>
+                                <option value="gr">gr</option>
+                                <option value="kg">kg</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div className="product_content_properties">
+                <div className="properties">
+                    <label>Na Sklade</label>
+                    <Input value={state.naSklade}
+                           type={"number"}
+                           onChange={(e) => setState(prevState => ({...prevState, naSklade: e.target.value}))}/>
+
+                </div>
+
+                <div className="properties">
+                    <label>Articul</label>
+                    <Input value={state.articul}
+                           onChange={(e) => setState(prevState => ({...prevState, articul: e.target.value}))}/>
+
+                </div>
+            </div>
+
+            <div className="product_content_properties">
+                <div className="properties">
+                    <label>Material</label>
+                    <Input value={state.material}
+                           onChange={(e) => setState(prevState => ({...prevState, material: e.target.value}))}/>
+
+                </div>
+                <div className="properties">
+                    <label>VID</label>
+                    <Input
+                        value={state.vid.join(', ')} // Show as comma-separated string
+                        onChange={(e) => setState(prevState => ({
+                            ...prevState,
+                            vid: e.target.value.split(',').map(item => item.trim())
+                        }))} // Split string into array
+                    />
+                </div>
+
+            </div>
+
 
             <div className="product_photo_content">
                 <Spin spinning={loading}>

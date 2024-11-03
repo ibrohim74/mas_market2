@@ -38,8 +38,11 @@ button:focus, a:focus, div:focus, img:focus, *:focus {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    scrollbar-width: none; /* Firefox uchun */
+    -ms-overflow-style: none; /* Internet Explorer va Edge uchun */
     user-select: none;
 }
+
 /* Disable any active/focused styling */
 *:active, *:focus {
     outline: none;

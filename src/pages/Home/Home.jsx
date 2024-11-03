@@ -16,7 +16,7 @@ import HelpSection from "../../component/section/helpSection.jsx";
 const Home = () => {
     return (
         <div>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <header>
                 <h1>
                     РЕКЛАМА НОВОГО <br/> ПОКОЛЕНИЯ
