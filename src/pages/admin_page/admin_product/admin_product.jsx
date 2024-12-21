@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './admin_product.css';
 import {Dropdown, Space, Input, Upload, message, Button, Spin, Menu} from 'antd';
-import { DownOutlined, InboxOutlined } from '@ant-design/icons';
+import {DownOutlined, InboxOutlined} from '@ant-design/icons';
 import {$API, $authHost} from '../../../utils/http.jsx';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from "react-quill";
@@ -14,7 +14,9 @@ const AdminProduct = () => {
         infoRu: '',
         productNameUz: '',
         productNameRu: '',
-        productPrice: '',
+        productPrice: [
+            {price_1:""},
+        ],
         propertiesUz: '',
         propertiesRu: '',
         uploadedFiles: [],
@@ -28,6 +30,7 @@ const AdminProduct = () => {
         naSklade: '',
         articul: '',
         material: '',
+        newKey: "",
     });
     console.log(state)
     const [category, setCategory] = useState([]);
@@ -39,7 +42,7 @@ const AdminProduct = () => {
     const [loading, setLoading] = useState(false);
 
     const toolbarOpt = ['blockquote', 'bold', 'italic', 'underline', 'strike', 'link'];
-    const { Dragger } = Upload;
+    const {Dragger} = Upload;
 
     // Kategoriyalarni olish
     const getCategory = async () => {
@@ -164,7 +167,7 @@ const AdminProduct = () => {
             formData.append('nameRU', state.productNameRu);
             formData.append('category', state.selectedCategory.id);
             formData.append('subcategory', state.selectedSubCategory.id);
-            formData.append('price', state.productPrice);
+            formData.append('price', JSON.stringify(state.productPrice));
             formData.append('infoUZ', state.infoUz);
             formData.append('infoRU', state.infoRu);
             formData.append('propertiesUz', state.propertiesUz);
@@ -175,8 +178,8 @@ const AdminProduct = () => {
             formData.append('sposib_naniseniya', JSON.stringify(state.sposibNaniseniya)); // Convert to JSON
             formData.append('oblast_naniseniya', JSON.stringify(state.oblast_naniseniya)); // Convert to JSON
 
-            formData.append('razmer', JSON.stringify({ Razmer: state.razmer, Razmer_type: state.razmerType }));
-            formData.append('ves', JSON.stringify({ Ves: state.ves, Ves_type: state.vesType }));
+            formData.append('razmer', JSON.stringify({Razmer: state.razmer, Razmer_type: state.razmerType}));
+            formData.append('ves', JSON.stringify({Ves: state.ves, Ves_type: state.vesType}));
             formData.append('na_sklade', state.naSklade);
             formData.append('articul', state.articul);
             formData.append('material', state.material);
@@ -185,7 +188,7 @@ const AdminProduct = () => {
                 formData.append('photos_or_videos', id); // media id larni qo'shish
             });
 
-          const res=  await $authHost.post('/admin-api/product-create/', formData, {
+            const res = await $authHost.post('/admin-api/product-create/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -200,7 +203,46 @@ const AdminProduct = () => {
         }
     };
 
-    console.log(category)
+    const handlePriceChange = (index, key, value) => {
+        setState(prevState => {
+            const updatedProductPrice = [...prevState.productPrice];
+            updatedProductPrice[index] = {
+                ...updatedProductPrice[index],
+                [key]: value,
+            };
+            return {
+                ...prevState,
+                productPrice: updatedProductPrice,
+            };
+        });
+    };
+    // Handle input change for the new key name
+    const handleNewKeyChange = (e) => {
+        setState(prevState => ({
+            ...prevState,
+            newKey: e.target.value,
+        }));
+    };
+
+    // Add a new price object with the user-defined key
+    const addNewPrice = () => {
+        if (state.newKey.trim() === "") {
+            alert("Please provide a valid key name.");
+            return;
+        }
+
+        setState(prevState => {
+            const newPriceObject = {
+                [state.newKey]: "",  // Use the custom key provided by the user
+            };
+            return {
+                ...prevState,
+                productPrice: [...prevState.productPrice, newPriceObject],
+                newKey: "", // Clear the input field after adding
+            };
+        });
+    };
+
     return (
         <div className="admin-product">
             <div className="category_product">
@@ -254,11 +296,39 @@ const AdminProduct = () => {
                 <Input maxLength={90} value={state.productNameRu}
                        onChange={(e) => setState(prevState => ({...prevState, productNameRu: e.target.value}))}
                        placeholder="Точное название товара" className="product_input" disabled={loading}/>
+            </div>
 
-                <label>Price *</label>
-                <Input maxLength={90} value={state.productPrice} type={"number"}
-                       onChange={(e) => setState(prevState => ({...prevState, productPrice: e.target.value}))}
-                       placeholder="Цена товара" className="product_input" disabled={loading}/>
+            <div className="product_content_price">
+                {/* Input to specify the new key name */}
+                <Input
+                    value={state.newKey}
+                    onChange={handleNewKeyChange}
+                    placeholder="Enter new key name"
+                    className="product_input"
+                />
+                <Button type={"primary"} onClick={addNewPrice}>Add New Price</Button>
+
+                {/* Render the price objects */}
+                {state.productPrice.map((item, index) => (
+                    <div key={index}>
+
+                        {Object.keys(item).map((key) => (
+                            <div key={key} className="product_price_item">
+                                <label>{key}</label>
+                                <Input
+                                    key={key}
+                                    maxLength={90}
+                                    value={item[key]} // Display the value of the current price key
+                                    onChange={(e) => handlePriceChange(index, key, e.target.value)}
+                                    placeholder={`Цена товара ${key}`}
+                                    className="product_input"
+                                    disabled={state.loading}
+                                />
+                            </div>
+
+                        ))}
+                    </div>
+                ))}
             </div>
 
             <div className="product_content_info">
@@ -324,7 +394,7 @@ const AdminProduct = () => {
                         <label style={{display: "flex"}}>
 
                             <input
-                                type="number"
+                                type="text"
                                 value={state.razmer}
                                 onChange={(e) => setState(prevState => ({...prevState, razmer: e.target.value}))}
                                 placeholder="Razmer kiriting"

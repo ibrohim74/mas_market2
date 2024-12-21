@@ -1,7 +1,7 @@
 import React from 'react';
 import "./home.css"
 import Navbar from "../../component/navbar/navbar.jsx";
-import mas from "../../assets/img/mas.png"
+import mas from "../../assets/icons/masOq.png"
 import SectionPopularProduct from "../../component/section/Section_popular_product.jsx";
 import SectionPopularService from "../../component/section/Section_popular_service.jsx";
 import SectionHeroCategory from "../../component/section/Section_hero_category.jsx";
@@ -29,13 +29,11 @@ const Home = () => {
                         <div className="about_box-left">
                             <h1><span className={'under_line'}>Пара слов</span> о нас, производстве и брендинге</h1>
                             <p>
-                                В своём стремлении улучшить пользовательский опыт мы упускаем, что ключевые особенности
-                                структуры проекта.
-                            </p>
-                            <p>
-
-                                В своём стремлении улучшить пользовательский опыт мы упускаем, что клечевые особенности
-                                структуры проекта опыт мы упускаем, что ключевые особенности структуры проекта.
+                                MAS Marketing — компания, специализирующаяся на создании качественной и эффективной
+                                рекламы. Мы занимаемся производством баннеров, объемных букв, роллапов, стендов и других
+                                рекламных материалов. Каждый наш продукт сочетает в себе высокое качество и креативный
+                                подход, предлагая клиентам современные и запоминающиеся решения. Сотрудничая с нами, вы
+                                сможете укрепить свой бренд и создать яркое впечатление для вашей аудитории.
                             </p>
                         </div>
                         <div className="about_box-right">
@@ -45,23 +43,26 @@ const Home = () => {
                     <div className="about_box-bottom">
                         <div className="about_box-bottom_item">
                             <img src={cloud} alt=""/>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae consequuntur
-                                dolores harum sed vitae.</p>
+                            <h3>Высокое качество</h3>
+                            <p style={{margin:0}}>Мы используем современные технологии и материалы, чтобы обеспечить долговечность и
+                                привлекательный внешний вид каждого продукта.</p>
                         </div>
                         <div className="about_box-bottom_item">
                             <img src={time} alt=""/>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae consequuntur
-                                dolores harum sed vitae.</p>
+                            <h3>Индивидуальный подход</h3>
+                            <p>Каждый проект уникален, и мы разрабатываем рекламные решения с учетом всех пожеланий и
+                                потребностей клиента.</p>
                         </div>
                         <div className="about_box-bottom_item">
                             <img src={energy} alt=""/>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae consequuntur
-                                dolores harum sed vitae.</p>
+                            <h3>Оперативность </h3>
+                            <p>Мы ценим ваше время и всегда стремимся завершить работы в установленные сроки, сохраняя
+                                высокие стандарты качества.</p>
                         </div>
                         <div className="about_box-bottom_item">
                             <img src={OPT} alt=""/>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae consequuntur
-                                dolores harum sed vitae.</p>
+                            <h3>Креативность и инновации</h3>
+                            <p>Наши специалисты постоянно ищут новые идеи и решения, чтобы ваша реклама выделялась и запоминалась.</p>
                         </div>
                     </div>
                 </section>

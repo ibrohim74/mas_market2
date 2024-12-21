@@ -3,37 +3,64 @@ import { useNavigate } from "react-router-dom";
 import { CHECKOUT } from "../../../utils/const/consts.jsx";
 
 function BottomBar({ info }) {
-    const [counter, setCounter] = useState(1);
-    const totalPrice = info.price * counter;
+    const [counter, setCounter] = useState(1); // counter ni boshqarish
+
+    // Funksiya: Narxni miqdorga qarab olish
+    function getPriceByQuantity(quantity) {
+        if (!info.price || !Array.isArray(info.price)) {
+            // Agar info.price massiv bo'lmasa, default narxni qaytaramiz
+            return 0; // Yoki default narx
+        }
+
+        let price = 0;
+
+        // price massividagi har bir obyektni tekshiramiz
+        for (const priceObj of info.price) {
+            for (const key in priceObj) {
+                const minQuantity = parseInt(key.split('_')[1], 10); // price_10 dan 10 ni oladi
+                // Agar quantity minQuantity ga teng yoki katta bo'lsa, o'sha narxni olamiz
+                if (counter >= minQuantity) {
+                    price = priceObj[key]; // Mos keladigan narxni olamiz
+                }
+            }
+        }
+
+        // Agar narxni topolmasak, default narxni qaytaramiz
+        return price || 0;
+    }
+
+    // Bitta mahsulot uchun narxni olish
+    const singleProductPrice = getPriceByQuantity(1); // Bitta mahsulot narxini olish
+    const totalPrice = singleProductPrice * counter; // Umumiy narx (counter ni miqdor sifatida ishlatamiz)
+
     const navigate = useNavigate();
 
+    // Raqamni formatlash
     function numberFormatter(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     }
 
+    // Savatga mahsulot qo'shish
     const handleAddToBasket = () => {
         const product = {
             name: info.name,
             id: info.id,
             quantity: counter,
-            price: info.price,
+            price: getPriceByQuantity(counter), // Dinamik narx (counter asosida)
         };
 
-        // Get the existing basket from localStorage
-        const basket = JSON.parse(localStorage.getItem('basket')) || [];
+        const basket = JSON.parse(localStorage.getItem('basket')) || []; // Savatni olish
 
-        // Check if the product already exists in the basket
+        // Agar mahsulot mavjud bo'lsa, uning miqdorini oshiramiz
         const existingProductIndex = basket.findIndex(item => item.id === product.id);
 
         if (existingProductIndex !== -1) {
-            // Update quantity if product exists
             basket[existingProductIndex].quantity += counter;
         } else {
-            // Add new product if it doesn't exist
-            basket.push(product);
+            basket.push(product); // Yangi mahsulotni qo'shamiz
         }
 
-        // Save the updated basket back to localStorage
+        // Yangilangan savatni saqlaymiz
         localStorage.setItem('basket', JSON.stringify(basket));
     };
 
@@ -42,10 +69,10 @@ function BottomBar({ info }) {
             <div className="prise-sale">
                 <div>
                     <span>Итог</span>
+                    <b>{numberFormatter(singleProductPrice)} So'm</b>
                 </div>
                 <div>
                     <b>{numberFormatter(totalPrice)} So'm</b>
-                    {/*<span>за шт</span>*/}
                 </div>
             </div>
 
@@ -65,7 +92,7 @@ function BottomBar({ info }) {
                 handleAddToBasket();
                 navigate(CHECKOUT);
             }}>
-                купить в один клик
+                Купить в один клик
             </button>
         </div>
     );

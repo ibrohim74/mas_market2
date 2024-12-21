@@ -47,7 +47,9 @@ header h1 {
     font-size: 40px;
     margin-top: 0;
 }
-
+.about_box-left p{
+    padding-left: 10px;
+}
 .about_box-right {
     display: flex;
     justify-content: center;
@@ -59,8 +61,6 @@ header h1 {
 .about_box-right img {
     width: 80%;
     height: 50%;
-    filter: drop-shadow(0px 0px 5px #fff);
-
 }
 
 .under_line {
@@ -77,12 +77,18 @@ header h1 {
 .about_box-bottom_item {
     width: 25%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: self-start;
     flex-direction: column;
     padding: 5px;
+    height: 225px;
 }
-
+.about_box-bottom_item h3{
+    font-size: 20px;
+}
+.about_box-bottom_item p{
+    font-size: 15px;
+}
 .about_box-bottom_item img {
     width: 40px;
     height: 40px;
@@ -94,7 +100,7 @@ header h1 {
     }
 
     .about_box-bottom_item {
-        width: 45%;
+        width: 100%;
     }
 
     .about_box {
@@ -127,25 +133,25 @@ header h1 {
 }
 
 .popular_swiper .swiper-slide {
-    height: 400px;
+    height: 313px;
     background: transparent;
     margin-bottom: 30px;
     overflow: hidden;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
 
 .popular_swiper_top {
     width: 100%;
-    height: 50%;
+    height: 80%;
     border-radius: 20px;
 }
 
 .popular_swiper_top img {
     width: 100%;
-    border-radius: 20px;
+    border-radius: 40px;
     height: 100%;
 }
 

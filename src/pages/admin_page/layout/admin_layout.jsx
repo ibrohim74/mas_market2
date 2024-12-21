@@ -1,5 +1,12 @@
 import React from 'react';
-import {Admin, ADMIN_CATEGORY, ADMIN_PRODUCTS, HOME} from "../../../utils/const/consts.jsx";
+import {
+    Admin,
+    ADMIN_CATEGORY,
+    ADMIN_CHANGE_PRODUCT,
+    ADMIN_DASHBOARD,
+    ADMIN_PRODUCTS,
+    HOME
+} from "../../../utils/const/consts.jsx";
 import {Link, Route, Routes, useLocation} from "react-router-dom";
 import {Layout} from 'antd';
 
@@ -8,9 +15,9 @@ import "./admin_layout.css"
 
 const AdminLayout = () => {
     const token = window.localStorage.getItem("token");
-    const location = useLocation();  // Joriy URL'ni olish uchun
+    const location = useLocation();
 
-    // Dinamik sarlavha belgilash
+
     const getHeaderTitle = () => {
         const pathSegments = location.pathname.split('/');
 
@@ -58,8 +65,8 @@ const AdminLayout = () => {
                 <Layout style={layoutStyle}>
                     <Sider width="15%" style={siderStyle}>
                         <div className="layout_sider">
-                            <Link to={ADMIN_PRODUCTS}>Products</Link>
-                            <Link to={ADMIN_CATEGORY}>Category</Link>
+                            <Link to={ADMIN_DASHBOARD+ADMIN_PRODUCTS}>Products</Link>
+                            <Link to={ADMIN_DASHBOARD+ADMIN_CHANGE_PRODUCT}>Product Change</Link>
                         </div>
                     </Sider>
                     <Layout>

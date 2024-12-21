@@ -15,26 +15,26 @@ const SectionPopularService = () => {
             <div className="section_popular_service_box">
                 <div className="section_popular_service_box_item">
                     <img src={ps1} alt=""/>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae consequuntur
-                        dolores harum sed vitae.</p>
+                    <h1>Гравировка</h1>
+                    <p>Нанесем на изделия логотип, рисунок или надпись</p>
                     <Link to={"#"}>Prosmotr</Link>
                 </div>
                 <div className="section_popular_service_box_item">
                     <img src={ps2} alt=""/>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae consequuntur
-                        dolores harum sed vitae.</p>
+                    <h1>Шелкография</h1>
+                    <p>Изображения высоко качества на любых материалах</p>
                     <Link to={"#"}>Prosmotr</Link>
                 </div>
                 <div className="section_popular_service_box_item">
                     <img src={ps3} alt=""/>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae consequuntur
-                        dolores harum sed vitae.</p>
+                    <h1>Тиснение</h1>
+                    <p>Нанесения рельефного рисунка</p>
                     <Link to={"#"}>Prosmotr</Link>
                 </div>
                 <div className="section_popular_service_box_item">
                     <img src={ps4} alt=""/>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae consequuntur
-                        dolores harum sed vitae.</p>
+                    <h1>Тампопечать</h1>
+                    <p>Перенос изображения с помощью силиконового валика</p>
                     <Link to={"#"}>Prosmotr</Link>
                 </div>
             </div>

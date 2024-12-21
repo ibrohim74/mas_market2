@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import "./footer.css"
-import mas from "../../assets/img//mas.png"
+import mas from "../../assets/icons/masOq.png"
 const Footer = () => {
     useEffect(() => {
         // Sahifa yuklanganida fokusni olib tashlaydi
@@ -16,7 +16,7 @@ const Footer = () => {
                                 <i className="fas fa-map-marker-alt"></i>
                                 <div className="cta-text">
                                     <h4>Find us</h4>
-                                    <span>1010 Avenue, sw 54321, chandigarh</span>
+                                    <span>г. Ташкент, улица Жоме, дом 229</span>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@ const Footer = () => {
                     <div className="row">
                         <div className="col-xl-4 col-lg-4 mb-50">
                             <div className="footer-widget">
-                                <div className="footer-logo" style={{background:"white"}}>
+                                <div className="footer-logo">
                                     <a href="#"><img src={mas} className="img-fluid" alt="logo"/></a>
                                 </div>
                                 <div className="footer-text">
